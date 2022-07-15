@@ -8,12 +8,13 @@ You are free to make pull requests to add functionality, or make changes if you 
 - *2021.3.6f1 and up*
 
 ## Branches
-There are currently 4 branches to submit pull requests to:
-- **UnityEngineAssets:** *This is the primary branch for anything that falls under the UnityEngine namespace.*
+There are currently 5 branches to submit pull requests to:
+- **UnityEngineAssets.UnityEngine:** *This is the primary branch for anything that falls under the UnityEngine namespace.*
 - **UnityEngineAssets.Unity:** *Similar to UnityEngineAssets, but exclusive to the namespaces Unity.Mathematics,
-Unity.Burst, and others.*
-- **UnityEngineAssets.Unsafe:** *The primary branch for anything marked with **unsafe** regardless of namespace.*
+Unity.Burst, etc.*
+- **UnityEngineAssets.Unsafe:** *The primary branch for anything marked with **/unsafe** regardless of namespace.*
 - **UnityEngineAssets.UnityEditor:** *Editor windows, inspector, or other tools for the Unity editor.*
+- **UnityEngineAssets.Scripts:** *MonoBehaviour scripts. Unlike other branches, this will house functionality.*
 
 *Note: Most branches will follow the naming convention of Unity's namespaces. Large changes or additions might
 be created under a seperate branch that wont be mentioned here.*
@@ -23,10 +24,10 @@ be created under a seperate branch that wont be mentioned here.*
 **Changes should always be made in the respective branch.**
 
 For example: do not make a pull request that contains changes for the branch
-*UnityEngineAssets.Unsafe* if changes are made in the */UnityEngineAssets/..* folder!
+*`UnityEngineAssets.Unsafe`* if changes are made in the *`/UnityEngineAssets/..`* folder!
 
 ## Installation
-Add this package through the Package Manager using the *Add package from git URL...* option using the clone repo HTTPS URL.
+Add this package through the Package Manager using the *Add package from git URL...* option when using the clone repo HTTPS URL.
 
 ***OR***
 
