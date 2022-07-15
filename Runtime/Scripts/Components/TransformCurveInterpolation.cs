@@ -1,4 +1,3 @@
-using Extevious.Curves;
 using UnityEngineAssets.Helpers;
 using UnityEngine;
 
@@ -98,8 +97,22 @@ namespace UnityEngineAssets.Scripts.Components {
 			float deltaScale = delta / Time.fixedDeltaTime;
 			float t = 0.5f + deltaScale * 0.5f;
 
-			transform.position = CurveFunctions.ParametricCurve(m_targetPositions[0], m_targetPositions[1], m_targetPositions[2], 0.5f, t);
+			transform.position = ParametricCurve(m_targetPositions[0], m_targetPositions[1], m_targetPositions[2], 0.5f, t);
 			transform.rotation = Quaternion.SlerpUnclamped(m_targetRotations[1], m_targetRotations[2], deltaScale);
+		}
+
+		private Vector3 ParametricCurve (Vector3 p0, Vector3 p1, Vector3 p2, float s, float t) {
+			float x = 1f - s;
+
+			Vector3 A = p0;
+			Vector3 B = (p1 - p0) * (1f / (x * s));
+			Vector3 C = (p2 - p0) * (1f / x);
+
+			Vector3 a0 = A;
+			Vector3 a1 = B - C * s;
+			Vector3 a2 = C - B;
+
+			return ((a2 * t) + a1) * t + a0;
 		}
 
 		/// <summary>

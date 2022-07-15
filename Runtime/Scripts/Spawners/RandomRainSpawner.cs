@@ -1,114 +1,118 @@
 using System.Collections.Generic;
 using UnityEngine;
-using Extevious.Collections.Generic;
 using UnityEngineAssets.Helpers;
 using System.Collections;
+using UnityEngine.Pool;
 
 namespace UnityEngineAssets.Scripts.Spawners {
-    [AddComponentMenu(ScriptHelpers.AddComponentMenuText.Spawners + "Random Rain Spawner")]
-    public class RandomRainSpawner : MonoBehaviour {
-        [SerializeField] private int m_maxCount = 30;
-        [SerializeField] private float m_spawnDelay = 0.1f;
-        [SerializeField] private float m_speed = -15f;
-        [SerializeField] private float m_scale = 1f;
+	[AddComponentMenu(ScriptHelpers.AddComponentMenuText.Spawners + "Random Rain Spawner")]
+	public class RandomRainSpawner : MonoBehaviour {
+		[SerializeField] private int m_maxCount = 30;
+		[SerializeField] private float m_spawnDelay = 0.1f;
+		[SerializeField] private float m_speed = -15f;
+		[SerializeField] private float m_scale = 1f;
 
-        [SerializeField] private Vector3 m_corner0 = Vector3.one * 5f;
-        [SerializeField] private Vector3 m_corner1 = Vector3.one * 25f;
-        [SerializeField] private GameObject m_optionalPrefab;
+		[SerializeField] private Vector3 m_corner0 = Vector3.one * 5f;
+		[SerializeField] private Vector3 m_corner1 = Vector3.one * 25f;
+		[SerializeField] private GameObject m_optionalPrefab;
 
-        private DynamicPool<GameObject> m_pool;
-        private List<GameObject> m_gameObjects = new List<GameObject>();
+		private ObjectPool<GameObject> m_pool;
+		private List<GameObject> m_gameObjects = new List<GameObject>();
 
-        public Vector3 Corner0 { get => m_corner0; set => m_corner0 = value; }
-        public Vector3 Corner1 { get => m_corner1; set => m_corner1 = value; }
+		public Vector3 Corner0 { get => m_corner0; set => m_corner0 = value; }
+		public Vector3 Corner1 { get => m_corner1; set => m_corner1 = value; }
 
-        private GameObject OnEmptyPool () {
-            GameObject go;
+		private GameObject OnEmptyPool () {
+			GameObject go;
 
-            if (m_optionalPrefab != null) {
-                go = Instantiate(m_optionalPrefab);
+			if (m_optionalPrefab != null) {
+				go = Instantiate(m_optionalPrefab);
 
-            } else {
-                int rand = Random.Range(0, 3);
+			} else {
+				int rand = Random.Range(0, 3);
 
-                switch (rand) {
-                    case 0: go = GameObject.CreatePrimitive(PrimitiveType.Capsule); break;
-                    case 1: go = GameObject.CreatePrimitive(PrimitiveType.Cube); break;
-                    case 2: go = GameObject.CreatePrimitive(PrimitiveType.Cylinder); break;
-                    default: go = GameObject.CreatePrimitive(PrimitiveType.Sphere); break;
-                }
-            }
+				switch (rand) {
+					case 0: go = GameObject.CreatePrimitive(PrimitiveType.Capsule); break;
+					case 1: go = GameObject.CreatePrimitive(PrimitiveType.Cube); break;
+					case 2: go = GameObject.CreatePrimitive(PrimitiveType.Cylinder); break;
+					default: go = GameObject.CreatePrimitive(PrimitiveType.Sphere); break;
+				}
+			}
 
-            if (go.TryGetComponent<MeshRenderer>(out MeshRenderer renderer)) {
-                renderer.material.color = Random.ColorHSV(0f, 1f, 1f, 1f, 1f, 1f);
-            }
+			if (go.TryGetComponent<MeshRenderer>(out MeshRenderer renderer)) {
+				renderer.material.color = Random.ColorHSV(0f, 1f, 1f, 1f, 1f, 1f);
+			}
 
-            return go;
-        }
+			return go;
+		}
 
-        private void Awake () {
-            m_pool = new DynamicPool<GameObject>(OnEmptyPool);
-            if (m_optionalPrefab == null) Debug.LogWarning("Optional prefab was not assigned. Spawning primitives instead. Click \"Clear Pool and GameObjects\" button to purge when assigning prefab during runtime.");
-        }
+		private void Awake () {
+			m_pool = new ObjectPool<GameObject>(OnEmptyPool, null, null, (GameObject go) => Destroy(go));
+			if (m_optionalPrefab == null) Debug.LogWarning("Optional prefab was not assigned. Spawning primitives instead. Click \"Clear Pool and GameObjects\" button to purge when assigning prefab during runtime.");
+		}
 
-        private void FixedUpdate () {
-            Vector3 direction = new Vector3(0f, m_speed * Time.fixedDeltaTime, 0f);
+		private void Start () {
+			StartCoroutine(_SpawnLoop());
+		}
 
-            float y1 = (m_corner0.y < m_corner1.y) ? m_corner0.y : m_corner1.y;
-            float y2 = (m_corner0.y > m_corner1.y) ? m_corner0.y : m_corner1.y;
+		private void FixedUpdate () {
+			Vector3 direction = new Vector3(0f, m_speed * Time.fixedDeltaTime, 0f);
 
-            for (int i = 0; i < m_gameObjects.Count; i++) {
-                GameObject go = m_gameObjects[i];
+			float y1 = (m_corner0.y < m_corner1.y) ? m_corner0.y : m_corner1.y;
+			float y2 = (m_corner0.y > m_corner1.y) ? m_corner0.y : m_corner1.y;
 
-                if (go.transform.position.y < y1 || go.transform.position.y > y2) {
-                    m_gameObjects.Remove(go);
-                    go.SetActive(false);
-                    m_pool.Release(go);
-                    i--;
+			for (int i = 0; i < m_gameObjects.Count; i++) {
+				GameObject go = m_gameObjects[i];
 
-                    if (m_gameObjects.Count == 0) return;
-                }
+				if (go.transform.position.y < y1 || go.transform.position.y > y2) {
+					m_gameObjects.Remove(go);
+					go.SetActive(false);
+					m_pool.Release(go);
+					i--;
 
-                go.transform.position += direction;
-            }
-        }
+					if (m_gameObjects.Count == 0) return;
+				}
 
-        public void ClearPoolAndGameObjects () {
-            foreach (var go in m_gameObjects) m_pool.Release(go);
-            m_gameObjects.Clear();
+				go.transform.position += direction;
+			}
+		}
 
-            m_pool.Drain((GameObject go) => Destroy(go));
-        }
+		public void ClearPoolAndGameObjects () {
+			foreach (var go in m_gameObjects) m_pool.Release(go);
+			m_gameObjects.Clear();
 
-        private IEnumerator _SpawnLoop () {
-            while (true) {
-                if (m_gameObjects.Count >= m_maxCount) {
-                    yield return new WaitForSeconds(m_spawnDelay);
-                    continue;
-                }
+			m_pool.Clear();
+		}
 
-                GameObject go = m_pool.DynamicGet();
-                go.SetActive(true);
+		private IEnumerator _SpawnLoop () {
+			while (true) {
+				if (m_gameObjects.Count >= m_maxCount) {
+					yield return new WaitForSeconds(m_spawnDelay);
+					continue;
+				}
 
-                float x = Random.Range(m_corner1.x, m_corner0.x);
-                float z = Random.Range(m_corner1.z, m_corner0.z);
+				GameObject go = m_pool.Get();
+				go.SetActive(true);
 
-                float y = 0f;
+				float x = Random.Range(m_corner1.x, m_corner0.x);
+				float z = Random.Range(m_corner1.z, m_corner0.z);
 
-                if (m_corner1.y > m_corner0.y) {
-                    y = (System.Math.Sign(m_speed) == -1) ? m_corner1.y : m_corner0.y;
+				float y = 0f;
 
-                } else {
-                    y = (System.Math.Sign(m_speed) == -1) ? m_corner0.y : m_corner1.y;
-                }
+				if (m_corner1.y > m_corner0.y) {
+					y = (System.Math.Sign(m_speed) == -1) ? m_corner1.y : m_corner0.y;
 
-                go.transform.position = new Vector3(x, y, z);
-                go.transform.localScale = Vector3.one * m_scale;
+				} else {
+					y = (System.Math.Sign(m_speed) == -1) ? m_corner0.y : m_corner1.y;
+				}
 
-                m_gameObjects.Add(go);
+				go.transform.position = new Vector3(x, y, z);
+				go.transform.localScale = Vector3.one * m_scale;
 
-                yield return new WaitForSeconds(m_spawnDelay);
-            }
-        }
-    }
+				m_gameObjects.Add(go);
+
+				yield return new WaitForSeconds(m_spawnDelay);
+			}
+		}
+	}
 }
