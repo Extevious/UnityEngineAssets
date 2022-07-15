@@ -23,7 +23,7 @@ be created under a seperate branch that wont be mentioned here.*
 **Changes should always be made in the respective branch.**
 
 For example: do not make a pull request that contains changes for the branch
-*`UnityEngineAssets.Unsafe`* if changes are made in the *`/UnityEngineAssets/..`* folder!
+*`UnityEngineAssets.Unsafe`* if changes are made in the *`../Runtime/UnityEngine/*`* folder!
 
 ## Installation
 Add this package through the Package Manager using the *Add package from git URL...* option when using the clone repo HTTPS URL.
