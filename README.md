@@ -1,5 +1,5 @@
 # UnityEngineAssets
-A collction of tools, extensions, helpers, and other resources when working with Unity.
+A collction of tools, extensions, assets, and other resources for Unity.
 
 *Note: this library will accumulate tools and other features as time progresses.
 You are free to make pull requests to add functionality, or make changes if you desire.*
