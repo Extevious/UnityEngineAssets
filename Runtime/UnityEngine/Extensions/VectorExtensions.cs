@@ -2,6 +2,7 @@ using System.Runtime.CompilerServices;
 
 namespace UnityEngine {
 	public static class VectorExtensions {
+		
 		#region Vector3 Stripping
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static Vector3 StripX (this Vector3 vector) => new Vector3(0f, vector.y, vector.z);

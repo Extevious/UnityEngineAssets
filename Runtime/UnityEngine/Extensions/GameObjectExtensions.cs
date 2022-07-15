@@ -5,13 +5,13 @@ namespace UnityEngine {
 
         #region Position        
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector3 Position (this GameObject gameObject, Vector3 position) => gameObject.transform.position = position;
+        public static Vector3 SetPosition (this GameObject gameObject, Vector3 position) => gameObject.transform.position = position;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector3 Position (this GameObject gameObject, float x, float y, float z) => gameObject.transform.position = new Vector3(x, y, z);
+        public static Vector3 SetPosition (this GameObject gameObject, float x, float y, float z) => gameObject.transform.position = new Vector3(x, y, z);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector3 Position (this GameObject gameObject, float x, float y) => gameObject.transform.position = new Vector3(x, y, gameObject.transform.localPosition.z);
+        public static Vector3 SetPosition (this GameObject gameObject, float x, float y) => gameObject.transform.position = new Vector3(x, y, gameObject.transform.localPosition.z);
         #endregion
 
         #region Local Position        
@@ -42,6 +42,14 @@ namespace UnityEngine {
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Quaternion SetLocalRotation (this GameObject gameObject, Quaternion rotation) => gameObject.transform.localRotation = rotation;
+        #endregion
+        
+        #region Rotation Euler
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Vector3 SetEulerAngles (this GameObject gameObject, Vector3 euler) => gameObject.transform.eulerAngles = euler;
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Vector3 SetLocalEulerAngles (this GameObject gameObject, Vector3 euler) => gameObject.transform.localEulerAngles = euler;
         #endregion
 
         #region States        
