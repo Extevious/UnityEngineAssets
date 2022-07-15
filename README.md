@@ -1,5 +1,5 @@
 # UnityEngineAssets
-A collction of tools, extensions, assets, and other resources for Unity.
+A collection of tools, extensions, assets, and other resources for Unity.
 
 *Note: this library will accumulate tools and other features as time progresses.
 You are free to make pull requests to add functionality, or make changes if you desire.*
@@ -16,7 +16,7 @@ There are currently 5 branches to submit pull requests to:
 - **UnityEngineAssets.Scripts:** *MonoBehaviour scripts. Unlike other branches, this will house functionality.*
 
 *Note: Most branches will follow the naming convention of Unity's namespaces. Large changes or additions might
-be created under a seperate branch that wont be mentioned here.*
+be created under a separate branch that wont be mentioned here.*
 
 ## Submitting Pull Requests
 
