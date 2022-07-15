@@ -7,23 +7,28 @@ You are free to make pull requests to add functionality, or make changes if you 
 **Verified Compatible Editors:**
 - *2021.3.6f1 and up*
 
-## Branches
-There are currently 5 branches to submit pull requests to:
-- **UnityEngineAssets.UnityEngine:** *This is for anything that falls under the UnityEngine namespace.*
-- **UnityEngineAssets.Unity:** *Exclusive to the Unity namespace.*
-- **UnityEngineAssets.Unsafe:** *For anything marked with **/unsafe** regardless of namespace.*
-- **UnityEngineAssets.UnityEditor:** *Editor windows, inspector, or other tools for the Unity Editor.*
-- **UnityEngineAssets.Scripts:** *MonoBehaviour scripts. Unlike other branches, this will house functionality.*
+## Features
+**Vector Extensions:**
+- Vector component flipping
+- Vector component stripping
+- Vector component flipping with sign
 
-*Note: Most branches will follow the naming convention of Unity's namespaces. Large changes or additions might
-be created under a separate branch that wont be mentioned here.*
+**Transform Extensions:**
+- LerpTo.. for rotation, position, or scale
+- Rotation axis stripping
 
-## Submitting Pull Requests
+**GameObject Extensions:**
+- IsActive()
+- SetStatic(bool)
+- SetName(string)
+- SetTag(string)
 
-**Changes should always be made in the respective branch.**
-
-For example: do not make a pull request that contains changes for the branch
-*`UnityEngineAssets.Unsafe`* if changes are made in the *`../Runtime/UnityEngine/*`* folder!
+**Component Extensions:**
+- SetPosition(Vector3)
+- SetLocalPosition(Vector3)
+- SetRotation(Quaternion)
+- SetLocalRotation(Quaternion)
+- SetLocalScale(Vector3)
 
 ## Installation
 Add this package through the Package Manager using the *Add package from git URL...* option when using the clone repo HTTPS URL.
