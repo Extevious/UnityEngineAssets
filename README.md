@@ -9,11 +9,10 @@ You are free to make pull requests to add functionality, or make changes if you 
 
 ## Branches
 There are currently 5 branches to submit pull requests to:
-- **UnityEngineAssets.UnityEngine:** *This is the primary branch for anything that falls under the UnityEngine namespace.*
-- **UnityEngineAssets.Unity:** *Similar to UnityEngineAssets, but exclusive to the namespaces Unity.Mathematics,
-Unity.Burst, etc.*
-- **UnityEngineAssets.Unsafe:** *The primary branch for anything marked with **/unsafe** regardless of namespace.*
-- **UnityEngineAssets.UnityEditor:** *Editor windows, inspector, or other tools for the Unity editor.*
+- **UnityEngineAssets.UnityEngine:** *This is for anything that falls under the UnityEngine namespace.*
+- **UnityEngineAssets.Unity:** *Exclusive to the Unity namespace.*
+- **UnityEngineAssets.Unsafe:** *For anything marked with **/unsafe** regardless of namespace.*
+- **UnityEngineAssets.UnityEditor:** *Editor windows, inspector, or other tools for the Unity Editor.*
 - **UnityEngineAssets.Scripts:** *MonoBehaviour scripts. Unlike other branches, this will house functionality.*
 
 *Note: Most branches will follow the naming convention of Unity's namespaces. Large changes or additions might
