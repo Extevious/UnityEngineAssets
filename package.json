@@ -1,0 +1,10 @@
+{
+  "name": "com.extevious.unityengineassets",
+  "version": "1.0.0",
+  "dependencies": {
+    "com.unity.mathematics": "1.2.3"
+  },
+  "description": "Tools, extensions, assets, and other resources for Unity.",
+  "displayName": "UnityEngineAssets",
+  "type": "library"
+}
