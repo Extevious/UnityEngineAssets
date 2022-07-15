@@ -1,5 +1,5 @@
 {
-    "name": "UnityEngineAssets",
+    "name": "UnityEngineAssets.UnityEngine",
     "rootNamespace": "UnityEngine",
     "references": [],
     "includePlatforms": [],
