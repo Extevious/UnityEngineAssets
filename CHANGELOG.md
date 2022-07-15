@@ -2,6 +2,15 @@
 
 ---
 
-Initial commit to main containing files from my private repositories.
+-   Initial commit to main containing files from my private repositories.
 
-14/7/2022 @Extevious [Repository](https://github.com/Extevious/UnityEngineAssets) | [Files](https://github.com/Extevious/UnityEngineAssets/releases/tag/v1.0.0)
+14/7/2022 @Extevious
+
+### **Script | v1.1.0**
+
+---
+
+-   Added MonoBehaviour scripts that serve as functional independent modules affecting gameplay.
+-   Added dependencies to package.json for TransformCurveInterpolation script.
+
+14/7/2022 @Extevious
