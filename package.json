@@ -2,8 +2,7 @@
 	"name": "com.extevious.unityengineassets",
 	"version": "1.1.0",
 	"dependencies": {
-		"com.unity.mathematics": "1.2.3",
-		"com.extevious.curves": "https://github.com/Extevious/Curves.git"
+		"com.unity.mathematics": "1.2.3"
 	},
 	"description": "Tools, extensions, assets, and other resources for Unity.",
 	"displayName": "UnityEngineAssets",
